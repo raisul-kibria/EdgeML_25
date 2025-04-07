@@ -1,0 +1,54 @@
+import numpy as np
+from PIL import Image
+import os
+
+# Configuration
+image_width = 0
+image_height = 0
+color_mode = 'RGB'
+hex_file_path = './hex_data.txt'
+output_folder = 'output_images'
+output_filename = 'test_image.png'
+
+
+def read_image_from_hex_file(file_path, width, height, mode):
+    # Read hex data from file and clean it up
+    with open(file_path, 'r') as file:
+        hex_data = file.read().replace(' ', '').replace('\n', '')
+
+    print("Image data received. Decoding...")
+
+    raw_data = bytes.fromhex(hex_data)
+
+    # Decode the hex string into raw bytes
+    # You can use np.frombuffer function
+    rgb565 = None
+
+    r = ((rgb565 >> 11) & 0x1F)  # 5 bits red
+    # Do the shift for green and blue channels
+    g = None                     # 6 bits green
+    b = None                     # 5 bits blue
+
+    # Rescale the values
+    r = None
+    g = None
+    b = None
+
+    # Combine into RGB888 format
+    rgb888 = np.stack((r, g, b), axis=-1).astype(np.uint8)
+
+    # Reshape to image dimensions
+    return Image.fromarray(rgb888.reshape((height, width, 3)), mode)
+
+
+def save_image(image, folder, filename):
+    # save the image in the path: folder/filename
+    print(f"Image saved to: {save_path}")
+
+
+# Main execution
+image = read_image_from_hex_file(hex_file_path, image_width, image_height, color_mode)
+save_image(image, output_folder, output_filename)
+
+# Display the image
+image.show()
