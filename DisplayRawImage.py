@@ -3,8 +3,10 @@ from PIL import Image
 import os
 
 # Configuration
+# Provide the image width and height according to camera resolution
 image_width = None
 image_height = None
+
 color_mode = 'RGB'
 hex_file_path = './hex_data.txt'
 output_folder = 'output_images'
@@ -28,6 +30,7 @@ def read_image_from_hex_file(file_path, width, height, mode):
     # Do the shift for green and blue channels
     g = None                     # 6 bits green
     b = None                     # 5 bits blue
+
 
     # Rescale the values in [0,255] range
     r = None
