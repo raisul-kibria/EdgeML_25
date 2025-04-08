@@ -3,8 +3,8 @@ from PIL import Image
 import os
 
 # Configuration
-image_width = 0
-image_height = 0
+image_width = None
+image_height = None
 color_mode = 'RGB'
 hex_file_path = './hex_data.txt'
 output_folder = 'output_images'
@@ -18,18 +18,18 @@ def read_image_from_hex_file(file_path, width, height, mode):
 
     print("Image data received. Decoding...")
 
-    raw_data = bytes.fromhex(hex_data)
-
-    # Decode the hex string into raw bytes
-    # You can use np.frombuffer function
+    # Read into a bytes array the hex data
+    # You can use for example bytes.fromhex and np.frombuffer function
+    raw_data = None
     rgb565 = None
 
     r = ((rgb565 >> 11) & 0x1F)  # 5 bits red
+
     # Do the shift for green and blue channels
     g = None                     # 6 bits green
     b = None                     # 5 bits blue
 
-    # Rescale the values
+    # Rescale the values in [0,255] range
     r = None
     g = None
     b = None
@@ -42,9 +42,14 @@ def read_image_from_hex_file(file_path, width, height, mode):
 
 
 def save_image(image, folder, filename):
-    # save the image in the path: folder/filename
-    print(f"Image saved to: {save_path}")
+    os.makedirs(folder, exist_ok=True)
+    save_path = os.path.join(folder, filename)
 
+    # save the image in the path: folder/filename    
+    image = None
+
+    assert os.path.isfile(save_path)
+    print(f"Image saved to: {save_path}")
 
 # Main execution
 image = read_image_from_hex_file(hex_file_path, image_width, image_height, color_mode)
