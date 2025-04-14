@@ -28,7 +28,7 @@ def save_to_header(data: np.ndarray, output_file: str):
         f.write('#endif // IMAGE_DATA_H\n')
 
 if __name__ == "__main__":
-    # Todo: Add path for image and the output file name with .h extension (e.g., filename.h)
+    # Todo: Add path for image and the output file name with .h extension (e.g., image_data.h)
     image_path = ""
     output_file = ""
 
